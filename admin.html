@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin — Bufet Eva</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="adm-header">
+    <a href="index.html" class="adm-logo">Bufet <span>Eva</span></a>
+    <div class="adm-header-right">
+      <span class="adm-badge">
+        <i class="ti ti-lock" aria-hidden="true"></i> Správa jídelníčku
+      </span>
+      <a href="index.html" class="adm-back-link">
+        <i class="ti ti-arrow-left" aria-hidden="true"></i> Zpět na web
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="adm-container">
+
+    <div class="info-box">
+      <i class="ti ti-info-circle" aria-hidden="true"></i>
+      <span>Změny se ukládají do paměti prohlížeče (localStorage) a automaticky se zobrazují na webu ve stejném prohlížeči. Pro sdílení změn mezi více zařízeními je potřeba backend nebo Google Sheets integrace.</span>
+    </div>
+
+    <div class="adm-card">
+      <div class="adm-tabs" role="tablist">
+        <button class="adm-tab active" onclick="admTab('po',this)" role="tab">Pondělí</button>
+        <button class="adm-tab" onclick="admTab('ut',this)" role="tab">Úterý</button>
+        <button class="adm-tab" onclick="admTab('st',this)" role="tab">Středa</button>
+        <button class="adm-tab" onclick="admTab('ct',this)" role="tab">Čtvrtek</button>
+        <button class="adm-tab" onclick="admTab('pa',this)" role="tab">Pátek</button>
+        <button class="adm-tab" onclick="admTab('oznameni',this)" role="tab">Oznámení</button>
+      </div>
+
+      <!-- Day pages (built dynamically by admin.js) -->
+      <div id="adm-po" class="adm-page active" role="tabpanel"></div>
+      <div id="adm-ut" class="adm-page" role="tabpanel"></div>
+      <div id="adm-st" class="adm-page" role="tabpanel"></div>
+      <div id="adm-ct" class="adm-page" role="tabpanel"></div>
+      <div id="adm-pa" class="adm-page" role="tabpanel"></div>
+
+      <!-- Announcement page (static) -->
+      <div id="adm-oznameni" class="adm-page" role="tabpanel">
+        <div class="adm-section-label" style="margin-top:0">Hlavní oznámení</div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem">
+          Tento text se zobrazuje v červeném banneru na hlavní stránce webu.
+        </p>
+        <div class="adm-field">
+          <label for="ozn-text">Text oznámení</label>
+          <textarea id="ozn-text" rows="4">Pro velký zájem opět spouštíme rozvoz obědů na zavolání po Chrudimi a blízkém okolí!!! Objednávky na tel. 723671487 přijímáme od 7:00 do 9:30 hod.</textarea>
+        </div>
+        <div class="adm-footer-bar">
+          <div class="toast" id="toast-oznameni">
+            <i class="ti ti-check" aria-hidden="true"></i> Uloženo!
+          </div>
+          <div class="adm-footer-bar-buttons">
+            <button class="btn-save" onclick="saveOznameni()">
+              <i class="ti ti-device-floppy" aria-hidden="true"></i> Uložit
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>

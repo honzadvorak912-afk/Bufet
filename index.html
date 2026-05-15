@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bufet Eva Chrudim — snídaně, svačiny, obědy a rozvoz jídel. Každý den 8–10 druhů hotových jídel. Otevřeno Po–Pá 8:00–14:00." />
+  <meta name="keywords" content="bufet, jídelna, obědy, rozvoz jídel, Chrudim" />
+  <title>Bufet Eva — Chrudim</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <a href="#" class="nav-logo" onclick="showPage('home', document.querySelectorAll('.nav-links a')[0]); return false;">
+      Bufet <span>Eva</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active" onclick="showPage('home',this); return false;">O nás</a></li>
+      <li><a href="#" onclick="showPage('menu',this); return false;">Jídelní lístek</a></li>
+      <li><a href="#" onclick="showPage('delivery',this); return false;">Rozvoz jídel</a></li>
+      <li><a href="#" onclick="showPage('hours',this); return false;">Otevírací doba</a></li>
+      <li><a href="#" onclick="showPage('contact',this); return false;">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── PAGE: HOME ── -->
+  <div class="page active" id="page-home">
+
+    <div class="hero">
+      <div class="hero-text">
+        <span class="hero-badge">Od roku 2011 · Chrudim</span>
+        <h1>Domácí kuchyně<br>v srdci <em>Chrudimi</em></h1>
+        <p>Snídaně, svačiny, obědy a rozvoz jídel. Každý den 8–10 druhů hotových jídel a 2–3 druhy polévek. Podáváme od 9:00 do 14:00.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary" onclick="showPage('menu', document.querySelectorAll('.nav-links a')[1]); return false;">
+            <i class="ti ti-clipboard-list" aria-hidden="true"></i> Dnešní menu
+          </a>
+          <a href="#" class="btn btn-outline-light" onclick="showPage('delivery', document.querySelectorAll('.nav-links a')[2]); return false;">
+            <i class="ti ti-bike" aria-hidden="true"></i> Rozvoz jídel
+          </a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img
+          src="https://05b2dc310d.clvaw-cdnwnd.com/eabf16fc8943b9a4d4c2608977a50f8f/200000034-285892954b/30092013154.JPG?ph=05b2dc310d"
+          alt="Bufet Eva Chrudim"
+          loading="eager"
+        />
+      </div>
+    </div>
+
+    <div class="alert" id="alert-banner">
+      <i class="ti ti-speakerphone" aria-hidden="true"></i>
+      <span id="alert-text">Pro velký zájem opět spouštíme rozvoz obědů na zavolání po Chrudimi a blízkém okolí!!! Objednávky na tel. <strong>723&nbsp;671&nbsp;487</strong> přijímáme od 7:00 do 9:30 hod.</span>
+    </div>
+
+    <div class="about-card">
+      <p>Bufet provozujeme od března roku 2011. V oboru gastronomie máme již mnohaleté zkušenosti s tradiční českou i zahraniční kuchyní. Nabízíme snídaně, svačiny, obědy a rozvozy obědů do firem po Chrudimi a jeho okolí.</p>
+      <p>Každý den vám nabízíme bohatou nabídku pokrmů (denně 8–10 druhů hotových jídel a 2–3 druhy polévek) i nápojů. Hotová jídla jsou podávána od 9:00 do 14:00 hod. Parkování je možno před bufetem nebo u vlakového nádraží.</p>
+      <a href="https://www.facebook.com/bufeteva" class="fb-link" target="_blank" rel="noopener">
+        <i class="ti ti-brand-facebook" aria-hidden="true"></i>
+        Sledujte nás na Facebooku pro aktuality a čerstvé informace
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <h2 class="section-title">Co nabízíme</h2>
+      <div class="cards-grid">
+        <div class="feature-card">
+          <div class="feature-card-icon"><i class="ti ti-soup" aria-hidden="true"></i></div>
+          <h3>Snídaně &amp; svačiny</h3>
+          <p>Párky, sekaná, hranolky a další rychlé občerstvení od otevření bufetu.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon"><i class="ti ti-tools-kitchen-2" aria-hidden="true"></i></div>
+          <h3>Obědy</h3>
+          <p>8–10 druhů hotových jídel a 2–3 polévky každý den od 9:00 do 14:00 hod.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon"><i class="ti ti-bike" aria-hidden="true"></i></div>
+          <h3>Rozvoz jídel</h3>
+          <p>Dovážíme do firem i jednotlivcům po Chrudimi a okolí. Dovoz zdarma.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── PAGE: MENU ── -->
+  <div class="page" id="page-menu">
+    <div class="section">
+      <h2 class="section-title">Jídelní lístek</h2>
+
+      <div class="menu-tabs" role="tablist">
+        <button class="menu-tab active" data-day="po" onclick="showDay('po',this)" role="tab">Pondělí 11.5.</button>
+        <button class="menu-tab" data-day="ut" onclick="showDay('ut',this)" role="tab">Úterý 12.5.</button>
+        <button class="menu-tab" data-day="st" onclick="showDay('st',this)" role="tab">Středa 13.5.</button>
+        <button class="menu-tab" data-day="ct" onclick="showDay('ct',this)" role="tab">Čtvrtek 14.5.</button>
+        <button class="menu-tab" data-day="pa" onclick="showDay('pa',this)" role="tab">Pátek 15.5.</button>
+        <button class="menu-tab" onclick="showDay('snidane',this)" role="tab">Snídaně &amp; svačiny</button>
+        <button class="menu-tab" onclick="showDay('napoje',this)" role="tab">Nápoje</button>
+      </div>
+
+      <!-- Dynamic days (filled by main.js) -->
+      <div class="menu-day active" id="day-po" role="tabpanel"></div>
+      <div class="menu-day" id="day-ut" role="tabpanel"></div>
+      <div class="menu-day" id="day-st" role="tabpanel"></div>
+      <div class="menu-day" id="day-ct" role="tabpanel"></div>
+      <div class="menu-day" id="day-pa" role="tabpanel"></div>
+
+      <!-- Snídaně (static) -->
+      <div class="menu-day" id="day-snidane" role="tabpanel">
+        <div class="menu-section-label">Polévky</div>
+        <div class="snack-grid">
+          <div class="snack-item">
+            <h4>Různé druhy polévek</h4>
+            <p>Každé úterý a čtvrtek dršťková, každou středu gulášová</p>
+          </div>
+        </div>
+
+        <div class="menu-section-label">Snídaně, svačiny &amp; rychlé občerstvení</div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Opečená sekaná s hořčicí a křenem</div>
+            <div class="menu-item-weight">150 g</div>
+          </div>
+          <div class="menu-item-price"></div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Opečená klobása s hořčicí a křenem</div>
+          </div>
+          <div class="menu-item-price"></div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Sekaná v housce s hořčicí a cibulkou</div>
+            <div class="menu-item-weight">100 g</div>
+          </div>
+          <div class="menu-item-price"></div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Dietní párky s hořčicí</div>
+          </div>
+          <div class="menu-item-price"></div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Párek v rohlíku s hořčicí nebo kečupem</div>
+          </div>
+          <div class="menu-item-price"></div>
+        </div>
+        <div class="menu-item">
+          <div>
+            <div class="menu-item-name">Hranolky s kečupem nebo tatarskou omáčkou</div>
+          </div>
+          <div class="menu-item-price"></div>
+        </div>
+      </div>
+
+      <!-- Nápoje (static) -->
+      <div class="menu-day" id="day-napoje" role="tabpanel">
+
+        <div class="drinks-section">
+          <h3>Nealkoholické nápoje lahvové</h3>
+          <div class="drink-row"><span class="drink-vol">0,33 l</span><span class="drink-name">Mattoni</span><span class="drink-price">20 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,33 l</span><span class="drink-name">Mattoni jemná</span><span class="drink-price">20 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,33 l</span><span class="drink-name">Aquila neperlivá</span><span class="drink-price">20 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,5 l</span><span class="drink-name">Semtex</span><span class="drink-price">38 Kč</span></div>
+        </div>
+
+        <div class="drinks-section">
+          <h3>Nealko rozlévané</h3>
+          <div class="drink-row"><span class="drink-vol">0,3 l</span><span class="drink-name">Soda</span><span class="drink-price">12 Kč</span></div>
+        </div>
+
+        <div class="drinks-section">
+          <h3>Limonády čepované</h3>
+          <div class="drink-row"><span class="drink-vol">0,3 l</span><span class="drink-name">Koficola</span><span class="drink-price">18 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,3 l</span><span class="drink-name">Malinová</span><span class="drink-price">18 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,3 l</span><span class="drink-name">Citronová</span><span class="drink-price">18 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,3 l</span><span class="drink-name">Bezinková</span><span class="drink-price">18 Kč</span></div>
+        </div>
+
+        <div class="drinks-section">
+          <h3>Teplé nápoje</h3>
+          <div class="drink-row"><span class="drink-vol">7 g</span><span class="drink-name">Turecká káva</span><span class="drink-price">22 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">7 g</span><span class="drink-name">Instantní káva</span><span class="drink-price">25 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">7 g</span><span class="drink-name">Vídeňská káva</span><span class="drink-price">32 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol"></span><span class="drink-name">Čaj černý</span><span class="drink-price">22 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol"></span><span class="drink-name">Čaj ovocný</span><span class="drink-price">22 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol"></span><span class="drink-name">Čaj zelený</span><span class="drink-price">22 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol"></span><span class="drink-name">Grog</span><span class="drink-price">35 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol"></span><span class="drink-name">Mléko do kávy</span><span class="drink-price">3 Kč</span></div>
+        </div>
+
+        <div class="drinks-section">
+          <h3>Pivo čepované</h3>
+          <div class="drink-row"><span class="drink-vol">0,5 l</span><span class="drink-name">Kozel světlý 10°</span><span class="drink-price">35 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,3 l</span><span class="drink-name">Kozel světlý 10°</span><span class="drink-price">25 Kč</span></div>
+        </div>
+
+        <div class="drinks-section">
+          <h3>Pivo lahvové</h3>
+          <div class="drink-row"><span class="drink-vol">0,5 l</span><span class="drink-name">Pilsner Urquell 12°</span><span class="drink-price">38 Kč</span></div>
+        </div>
+
+        <div class="drinks-section">
+          <h3>Nealkoholické pivo lahvové</h3>
+          <div class="drink-row"><span class="drink-vol">0,5 l</span><span class="drink-name">Radegast Birell polotmavý</span><span class="drink-price">30 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,5 l</span><span class="drink-name">Radegast Birell světlý</span><span class="drink-price">30 Kč</span></div>
+        </div>
+
+        <div class="drinks-section">
+          <h3>Víno bílé</h3>
+          <div class="drink-row"><span class="drink-vol">0,2 l</span><span class="drink-name">Veltlínské zelené</span><span class="drink-price">25 Kč</span></div>
+        </div>
+
+        <div class="drinks-section">
+          <h3>Víno červené</h3>
+          <div class="drink-row"><span class="drink-vol">0,2 l</span><span class="drink-name">Modrý portugal</span><span class="drink-price">25 Kč</span></div>
+        </div>
+
+        <div class="drinks-section">
+          <h3>Destiláty</h3>
+          <div class="drink-row"><span class="drink-vol">0,04 l</span><span class="drink-name">Vodka</span><span class="drink-price">30 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,04 l</span><span class="drink-name">Rum Božkov</span><span class="drink-price">30 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,04 l</span><span class="drink-name">Rudolf Jelínek Moravská švestka</span><span class="drink-price">32 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,04 l</span><span class="drink-name">Fernet Citrus</span><span class="drink-price">34 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,04 l</span><span class="drink-name">Fernet Stock</span><span class="drink-price">34 Kč</span></div>
+          <div class="drink-row"><span class="drink-vol">0,04 l</span><span class="drink-name">Becherovka</span><span class="drink-price">35 Kč</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: DELIVERY ── -->
+  <div class="page" id="page-delivery">
+    <div class="section">
+      <h2 class="section-title">Rozvoz jídel</h2>
+      <div class="delivery-grid">
+
+        <div class="delivery-card open" onclick="toggleDelivery(this)">
+          <h3><i class="ti ti-user" aria-hidden="true"></i> Pro jednotlivce — stálá spolupráce</h3>
+          <p>Výběr z rozvozového jídelního lístku, týdenní objednávky</p>
+          <span class="delivery-toggle">Méně info ▲</span>
+          <div class="delivery-detail">
+            <p>Jídla vozíme jak v jednorázových boxech, tak i ve vlastních ešusech (jsou zapotřebí dvě sady na výměnu) a od toho se vypočítává cena — do vlastních ešusů <strong>115 Kč za oběd</strong> a do jednorázových boxů <strong>120 Kč za oběd</strong>. Cena je včetně polévky a za dovoz si nic neúčtujeme, takže jsou to ceny konečné.</p>
+            <p>Platba probíhá buď týdně (hned v pátek po odebraném týdnu) nebo měsíčně (± k 15. dni následujícího měsíce). Každý den je na výběr ze tří hlavních jídel.</p>
+            <p>Objednávky se dělají týden předem. V úterý nebo ve středu Vám přivezeme jídelní lístek na další týden, Vy si tam zaškrtáte obědy a do pátku ho odevzdáte vyplněný. Jídla je pak možné každý den do 7:30 hod. ještě měnit (přihlásit nebo naopak odhlásit).</p>
+            <p>Těšíme se na případnou spolupráci! V případě zájmu nás neváhejte kontaktovat.</p>
+            <p><em>Kolektiv Bufetu Eva</em></p>
+          </div>
+        </div>
+
+        <div class="delivery-card" onclick="toggleDelivery(this)">
+          <h3><i class="ti ti-phone" aria-hidden="true"></i> Pro jednotlivce — na zavolání</h3>
+          <p>Výběr z denního jídelního lístku, objednávka do 9:30 hod.</p>
+          <span class="delivery-toggle">Více info ▼</span>
+          <div class="delivery-detail">
+            <p>Opět nabízíme i dovoz na zavolání po Chrudimi a nejbližším okolí.</p>
+            <p>Vybírat můžete z denního jídelního lístku a zavolat na tel. číslo <strong>723&nbsp;671&nbsp;487</strong> do 9:30 hod. Jídla vozíme teplá v jednorázových zatavených boxech (je možné ohřívat v mikrovlnné troubě).</p>
+            <p>Ceny jídel po Chrudimi jsou platné dle aktuální denní nabídky + 7 Kč za box, rozvoz je zdarma. Platba je možná v hotovosti nebo stravenkami, na stravenky vracíme. Po přilehlých obcích okolo Chrudimi je cena + 10 Kč za dovoz.</p>
+            <p>Těšíme se na spolupráci!</p>
+            <p><em>Kolektiv Bufetu Eva</em></p>
+          </div>
+        </div>
+
+        <div class="delivery-card" onclick="toggleDelivery(this)">
+          <h3><i class="ti ti-building" aria-hidden="true"></i> Pro firmy</h3>
+          <p>Rozvoz do firem v Chrudimi od roku 2011</p>
+          <span class="delivery-toggle">Více info ▼</span>
+          <div class="delivery-detail">
+            <p>Rozvoz jídel do firem zajišťujeme již od otevření bufetu v březnu 2011 a za tu dobu máme již rozsáhlou klientelu firem po Chrudimi. Nabízíme rozvoz našimi automobily přímo až k Vám do firmy za přijatelné ceny.</p>
+            <p>Obědy se skládají z polévky, hlavního chodu (na výběr ze tří až čtyř druhů denně), popř. i nápoje a dezertu — záleží na Vás, jak si meníčka poskládáte. Zajišťujeme dovoz ve várnicích (pokud nemáte své, dovážíme v našich) nebo v jednorázových zatavených boxech pro případ odpoledních nebo nočních směn.</p>
+            <p>Cenu Vám vykalkulujeme přesně na míru v závislosti na počtu vybraných chodů k jednomu meníčku a počtu meníček za den. <strong>Dovoz je vždy zdarma.</strong></p>
+            <p>Jsme schopni se přizpůsobit Vašim návykům (čas dovozu, různá přání ohledně jídel atd.).</p>
+            <p>Těšíme se na případnou spolupráci!</p>
+            <p><em>Kolektiv Bufetu Eva</em></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: HOURS ── -->
+  <div class="page" id="page-hours">
+    <div class="section">
+      <h2 class="section-title">Otevírací doba</h2>
+      <div class="hours-grid">
+        <div>
+          <table class="hours-table">
+            <tbody>
+              <tr><td class="day">Pondělí</td><td class="time">8:00 – 14:00</td></tr>
+              <tr><td class="day">Úterý</td><td class="time">8:00 – 14:00</td></tr>
+              <tr><td class="day">Středa</td><td class="time">8:00 – 14:00</td></tr>
+              <tr><td class="day">Čtvrtek</td><td class="time">8:00 – 14:00</td></tr>
+              <tr><td class="day">Pátek</td><td class="time">8:00 – 14:00</td></tr>
+              <tr><td class="day">Sobota</td><td class="time closed">Zavřeno</td></tr>
+              <tr><td class="day">Neděle</td><td class="time closed">Zavřeno</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="hours-note">
+            <strong><i class="ti ti-info-circle" aria-hidden="true"></i> O svátcích zavřeno</strong>
+            Ve státní svátky je bufet zavřen.
+          </div>
+          <div class="hours-note">
+            <strong><i class="ti ti-phone" aria-hidden="true"></i> Objednávky rozvozu</strong>
+            Přijímáme od <strong>7:00 do 9:30 hod.</strong> na tel. 723&nbsp;671&nbsp;487.<br>
+            Hotová jídla podáváme od 9:00 do 14:00 hod.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE: CONTACT ── -->
+  <div class="page" id="page-contact">
+    <div class="section">
+      <h2 class="section-title">Kontakt</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Bufet Eva</h3>
+          <div class="contact-row">
+            <i class="ti ti-map-pin" aria-hidden="true"></i>
+            <div>
+              Československé armády 804 (ČSA 804), 537 01 Chrudim
+              <small>U autobusového a vlakového nádraží, pod samoobsluhou</small>
+            </div>
+          </div>
+          <div class="contact-row">
+            <i class="ti ti-phone" aria-hidden="true"></i>
+            <a href="tel:723671487">723 671 487</a>
+          </div>
+          <div class="contact-row">
+            <i class="ti ti-mail" aria-hidden="true"></i>
+            <a href="mailto:bufeteva@seznam.cz">bufeteva@seznam.cz</a>
+          </div>
+          <div class="contact-row">
+            <i class="ti ti-building" aria-hidden="true"></i>
+            <span>IČ: 69118485</span>
+          </div>
+          <div class="contact-row">
+            <i class="ti ti-brand-facebook" aria-hidden="true"></i>
+            <a href="https://www.facebook.com/bufeteva" target="_blank" rel="noopener">facebook.com/bufeteva</a>
+          </div>
+        </div>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976!2d15.7875216!3d49.9488218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s49.9488218%2C15.7875216!5e0!3m2!1scz!2sCZ!4v1778824904000"
+            title="Mapa — Bufet Eva Chrudim"
+            allowfullscreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+
+      <p class="owners-label">Provozovatelé</p>
+      <div class="owners-grid">
+        <div class="owner-card">
+          <div class="owner-name">Marcel Ehrenberger</div>
+          <div class="owner-info">
+            <a href="tel:603119244">603 119 244</a><br>
+            <a href="mailto:marcel.ehr@seznam.cz">marcel.ehr@seznam.cz</a>
+          </div>
+        </div>
+        <div class="owner-card">
+          <div class="owner-name">Jan Vojta</div>
+          <div class="owner-info">
+            <a href="tel:602331943">602 331 943</a><br>
+            <a href="mailto:h.vojta@tiscali.cz">h.vojta@tiscali.cz</a>
+          </div>
+        </div>
+        <div class="owner-card">
+          <div class="owner-name">Martin Bohatý</div>
+          <div class="owner-info">
+            <a href="tel:728108897">728 108 897</a><br>
+            <a href="mailto:hermino@seznam.cz">hermino@seznam.cz</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>© 2011–2026 Bufet Eva, Chrudim. Všechna práva vyhrazena.</span>
+    <a href="https://www.facebook.com/bufeteva" target="_blank" rel="noopener">
+      <i class="ti ti-brand-facebook" aria-hidden="true"></i> Facebook
+    </a>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
