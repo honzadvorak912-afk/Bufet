@@ -6,8 +6,74 @@
   <meta name="robots" content="noindex, nofollow" />
   <title>Admin — Bufet Eva</title>
   <link rel="stylesheet" href="admin.css" />
+  <style>
+    #login-overlay {
+      position: fixed; inset: 0;
+      background: #2A1F14;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+    }
+    #login-overlay.skryto { display: none; }
+    .login-box {
+      background: #3D2A18; border-radius: 12px; padding: 2rem;
+      width: 300px; display: flex; flex-direction: column; gap: 0.9rem;
+    }
+    .login-box h2 { color: #F7F3EE; font-size: 17px; font-weight: 500; font-family: sans-serif; }
+    .login-box p { color: rgba(247,243,238,0.6); font-size: 13px; font-family: sans-serif; }
+    #login-input {
+      padding: 0.6rem 0.8rem; border-radius: 8px;
+      border: 0.5px solid rgba(247,243,238,0.2);
+      background: #2A1F14; color: #F7F3EE;
+      font-size: 14px; width: 100%; font-family: sans-serif;
+      outline: none;
+    }
+    #login-input:focus { border-color: #E8855A; }
+    #login-btn {
+      background: #C4471A; color: #fff; border: none; border-radius: 8px;
+      padding: 0.65rem; font-size: 14px; font-weight: 500;
+      cursor: pointer; font-family: sans-serif;
+    }
+    #login-btn:hover { background: #8B3010; }
+    #login-error { color: #F09595; font-size: 13px; font-family: sans-serif; display: none; }
+  </style>
+  <script>
+    function getHeslo() {
+      try { return localStorage.getItem('bufeteva_heslo') || '1234'; } catch(e) { return '1234'; }
+    }
+    function zkontrolujHeslo() {
+      var val = document.getElementById('login-input').value;
+      if (val === getHeslo()) {
+        try { sessionStorage.setItem('bufeteva_logged', '1'); } catch(e) {}
+        document.getElementById('login-overlay').classList.add('skryto');
+      } else {
+        document.getElementById('login-error').style.display = 'block';
+        document.getElementById('login-input').value = '';
+        document.getElementById('login-input').focus();
+      }
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      try {
+        if (sessionStorage.getItem('bufeteva_logged') === '1') {
+          document.getElementById('login-overlay').classList.add('skryto');
+        } else {
+          document.getElementById('login-input').focus();
+        }
+      } catch(e) {}
+    });
+  </script>
 </head>
 <body>
+
+  <div id="login-overlay">
+    <div class="login-box">
+      <h2>Bufet Eva — administrace</h2>
+      <p>Zadejte heslo pro přístup.</p>
+      <input type="password" id="login-input" placeholder="Heslo"
+        onkeydown="if(event.key==='Enter') zkontrolujHeslo()" />
+      <span id="login-error">Nesprávné heslo.</span>
+      <button id="login-btn" onclick="zkontrolujHeslo()">Přihlásit se</button>
+    </div>
+  </div>
 
   <!-- HEADER -->
   <header class="adm-header">
@@ -40,14 +106,12 @@
         <button class="adm-tab" onclick="admTab('oznameni',this)" role="tab">Oznámení</button>
       </div>
 
-      <!-- Day pages (built dynamically by admin.js) -->
       <div id="adm-po" class="adm-page active" role="tabpanel"></div>
       <div id="adm-ut" class="adm-page" role="tabpanel"></div>
       <div id="adm-st" class="adm-page" role="tabpanel"></div>
       <div id="adm-ct" class="adm-page" role="tabpanel"></div>
       <div id="adm-pa" class="adm-page" role="tabpanel"></div>
 
-      <!-- Announcement page (static) -->
       <div id="adm-oznameni" class="adm-page" role="tabpanel">
         <div class="adm-section-label" style="margin-top:0">Hlavní oznámení</div>
         <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem">
@@ -66,22 +130,29 @@
               <i class="ti ti-device-floppy" aria-hidden="true"></i> Uložit
             </button>
           </div>
+        </div>
 
-          <div class="adm-section-label" style="margin-top:2rem">Změna hesla</div>
-          <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem">Heslo chrání přístup do administrace. Výchozí heslo je <strong>1234</strong>.</p>
-          <div class="adm-field" style="max-width:280px">
-            <label for="heslo-new">Nové heslo</label>
-            <input type="password" id="heslo-new" placeholder="Zadejte nové heslo" />
+        <div class="adm-section-label" style="margin-top:2rem">Změna hesla</div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem">
+          Heslo chrání přístup do administrace. Výchozí heslo je <strong>1234</strong>.
+        </p>
+        <div class="adm-field" style="max-width:280px">
+          <label for="heslo-new">Nové heslo</label>
+          <input type="password" id="heslo-new" placeholder="Zadejte nové heslo" />
+        </div>
+        <div class="adm-field" style="max-width:280px">
+          <label for="heslo-confirm">Nové heslo znovu</label>
+          <input type="password" id="heslo-confirm" placeholder="Zopakujte nové heslo" />
+        </div>
+        <div class="adm-footer-bar">
+          <div class="toast" id="toast-heslo">
+            <i class="ti ti-check" aria-hidden="true"></i> Heslo změněno!
           </div>
-          <div class="adm-field" style="max-width:280px">
-            <label for="heslo-confirm">Nové heslo znovu</label>
-            <input type="password" id="heslo-confirm" placeholder="Zopakujte nové heslo" />
+          <div class="adm-footer-bar-buttons">
+            <button class="btn-save" onclick="saveHeslo()">
+              <i class="ti ti-lock" aria-hidden="true"></i> Změnit heslo
+            </button>
           </div>
-          <div class="adm-footer-bar">
-            <div class="toast" id="toast-heslo"><i class="ti ti-check" aria-hidden="true"></i> Heslo změněno!</div>
-            <div><button class="btn-save" onclick="saveHeslo()"><i class="ti ti-lock" aria-hidden="true"></i> Změnit heslo</button></div>
-          </div>
-
         </div>
       </div>
 
@@ -90,83 +161,19 @@
   </main>
 
   <script src="admin.js"></script>
-
-<style>
-#login-overlay {
-  position: fixed; inset: 0; background: var(--warm-dark);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 9999; flex-direction: column; gap: 1rem;
-}
-#login-overlay.hidden { display: none; }
-.login-box {
-  background: #3D2A18; border-radius: 12px; padding: 2rem;
-  width: 320px; display: flex; flex-direction: column; gap: 1rem;
-}
-.login-box h2 { color: #F7F3EE; font-size: 18px; font-weight: 500; font-family: var(--font-sans); }
-.login-box p { color: rgba(247,243,238,0.6); font-size: 13px; }
-.login-box input {
-  padding: 0.6rem 0.8rem; border-radius: 8px;
-  border: 0.5px solid rgba(247,243,238,0.2); background: #2A1F14;
-  color: #F7F3EE; font-size: 14px; width: 100%; font-family: var(--font-sans);
-}
-.login-box input:focus { outline: none; border-color: #E8855A; }
-.login-btn {
-  background: #C4471A; color: #fff; border: none; border-radius: 8px;
-  padding: 0.65rem; font-size: 14px; font-weight: 500; cursor: pointer;
-  font-family: var(--font-sans); transition: background 0.15s;
-}
-.login-btn:hover { background: #8B3010; }
-.login-error { color: #F09595; font-size: 13px; display: none; }
-</style>
-
-<div id="login-overlay">
-  <div class="login-box">
-    <h2>Bufet Eva — správa jídelníčku</h2>
-    <p>Zadejte heslo pro přístup do administrace.</p>
-    <input type="password" id="login-input" placeholder="Heslo" onkeydown="if(event.key==='Enter')checkLogin()" />
-    <span class="login-error" id="login-error">Nesprávné heslo.</span>
-    <button class="login-btn" onclick="checkLogin()">Přihlásit se</button>
-  </div>
-</div>
-
-<script>
-const DEFAULT_HESLO = '1234';
-function getHeslo() {
-  return localStorage.getItem('bufeteva_heslo') || DEFAULT_HESLO;
-}
-function checkLogin() {
-  const val = document.getElementById('login-input').value;
-  if (val === getHeslo()) {
-    document.getElementById('login-overlay').classList.add('hidden');
-    sessionStorage.setItem('bufeteva_logged', '1');
-  } else {
-    document.getElementById('login-error').style.display = 'block';
-    document.getElementById('login-input').value = '';
-    document.getElementById('login-input').focus();
-  }
-}
-if (sessionStorage.getItem('bufeteva_logged') !== '1') {
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('login-input').focus();
-  });
-} else {
-  document.getElementById('login-overlay').classList.add('hidden');
-}
-</script>
-
-<script>
-function saveHeslo() {
-  const n = document.getElementById('heslo-new').value;
-  const c = document.getElementById('heslo-confirm').value;
-  const err = document.getElementById('toast-heslo');
-  if (!n) { alert('Zadejte nové heslo.'); return; }
-  if (n !== c) { alert('Hesla se neshodují.'); return; }
-  localStorage.setItem('bufeteva_heslo', n);
-  document.getElementById('heslo-new').value = '';
-  document.getElementById('heslo-confirm').value = '';
-  err.classList.add('show');
-  setTimeout(() => err.classList.remove('show'), 2500);
-}
-</script>
+  <script>
+    function saveHeslo() {
+      var n = document.getElementById('heslo-new').value;
+      var c = document.getElementById('heslo-confirm').value;
+      if (!n) { alert('Zadejte nové heslo.'); return; }
+      if (n !== c) { alert('Hesla se neshodují.'); return; }
+      try { localStorage.setItem('bufeteva_heslo', n); } catch(e) {}
+      document.getElementById('heslo-new').value = '';
+      document.getElementById('heslo-confirm').value = '';
+      var t = document.getElementById('toast-heslo');
+      t.classList.add('show');
+      setTimeout(function() { t.classList.remove('show'); }, 2500);
+    }
+  </script>
 </body>
 </html>
