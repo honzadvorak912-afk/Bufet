@@ -180,14 +180,18 @@ function initAlert() {
 
 function updateMenuTabDates() {
   const labels = { po: 'Pondělí', ut: 'Úterý', st: 'Středa', ct: 'Čtvrtek', pa: 'Pátek' };
+  const offsets = { po: 0, ut: 1, st: 2, ct: 3, pa: 4 };
+  const now = new Date();
+  const dow = now.getDay();
+  const diffToMon = dow === 0 ? -6 : 1 - dow;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() + diffToMon);
   DAY_KEYS.forEach(day => {
-    const tab = document.querySelector(`.menu-tab[data-day="${day}"]`);
+    const tab = document.querySelector('.menu-tab[data-day="' + day + '"]');
     if (!tab) return;
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_PREFIX + 'datum_' + day);
-      if (saved) { tab.textContent = labels[day] + ' ' + saved; return; }
-    } catch (e) {}
-    tab.textContent = labels[day];
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + offsets[day]);
+    tab.textContent = labels[day] + ' ' + d.getDate() + '.' + (d.getMonth() + 1) + '.';
   });
 }
 
