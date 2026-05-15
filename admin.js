@@ -140,7 +140,18 @@ function removeRow(type, day, idx) {
   renderRows(type, day, data[type]);
 }
 
+function saveDatum(day) {
+  const input = document.getElementById('datum-' + day);
+  if (!input) return;
+  try { localStorage.setItem(STORAGE_KEY_PREFIX + 'datum_' + day, input.value.trim()); } catch(e) {}
+}
+
+function loadDatum(day) {
+  try { return localStorage.getItem(STORAGE_KEY_PREFIX + 'datum_' + day) || ''; } catch(e) { return ''; }
+}
+
 function saveDay(day) {
+  saveDatum(day);
   const data = collectData(day);
   setData(day, data);
   showToast('toast-' + day);
@@ -227,10 +238,16 @@ function buildDayPage(day) {
   const data = getData(day);
   const d = DAYS[day];
 
+  const savedDatum = loadDatum(day);
   el.innerHTML = `
-    <div class="day-header">
-      <h2>${d.label}</h2>
-      <p>${d.datum}</p>
+    <div class="day-header" style="display:flex;align-items:center;justify-content:space-between;gap:1rem">
+      <div>
+        <h2>${d.label}</h2>
+        <p style="font-size:12px;color:var(--text-muted)">Datum v záložce na webu</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input id="datum-${day}" type="text" placeholder="např. 11.5." value="${savedDatum}" style="width:90px;padding:0.4rem 0.6rem;font-size:13px;border:0.5px solid var(--border);border-radius:var(--radius-md);font-family:inherit;color:var(--text-body);background:var(--white)" />
+      </div>
     </div>
 
     <div class="adm-section-label">Polévky</div>
